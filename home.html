@@ -23,6 +23,9 @@
   <link rel="stylesheet" type="text/css" href="plugins/slick/slick.css"/>
   <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css"/>
 
+  <!-- bar-rating -->
+  <link rel="stylesheet" type="text/css" href="plugins/jquery-bar-rating/themes/bootstrap-stars.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -44,17 +47,18 @@
       .example-modal .modal {
       background: transparent !important;
       }*/
-
-      #slide-kontainer {
-      	background-color: #ccc;
-      	padding: 0 2em;
+      body {
+      	background-color: rgb(236, 240, 241);   	
+      }
+      #main {
+      	margin-top: 5em;
       }
       #kata-pengantar {
       	width: 30em;
       	position: absolute;
       	top: 50%;
       	transform: translateY(-50%);
-      	left: 5em;
+      	left: 7em;
       	padding: 2em;
       	background-color: rgba(0, 0, 0, .5);
       }
@@ -63,49 +67,105 @@
       	color: #fff;
       	margin: auto;
       }
+      .slick-prev, .slick-next {
+      	z-index: 3;
+      	border-radius: 50%;
+      	background-color: rgba(41, 128, 185, .7);
+      	box-shadow: 0px 0px 10px rgb(41, 128, 185);
+      }
+      .slick-prev:hover, .slick-next:hover {
+      	background-color: rgb(41, 128, 185);
+      } 
+      .slick-prev {
+      	left: 3%;
+      }
+      .slick-next {
+      	right: 3%;
+      }
+      #slide-foto img {
+      	margin: 0 auto;
+      }
+      .kartu-wisata {
+      	margin: 0.5em 2em;
+      	border-radius: 5px; 
+      	background-color: rgb(255, 255, 255);
+      	box-shadow: 2px 2px 5px rgb(149, 165, 166);
+      	padding: 1em;
+      }
+      .wadah-foto {
+      	overflow: hidden;
+      	text-align: center;
+      	margin: 1em auto;
+      }
+      .foto-wisata {
+      	width: 140px;
+      	height: 140px;
+      	vertical-align: middle;
+      }
+      .nama-wisata {
+      	font-size: 2em;
+      	font-weight: bold;
+      	border-bottom: 1px solid rgb(149, 165, 166);
+      	width: 100%;
+      	display: block;
+      }
+      .alamat-wisata {
+      	min-height: 5em;
+      }
+      .br-wrapper {
+      	display: inline-block;
+      	vertical-align: top;
+      	margin-left: 0.5em;
+      }
+      .kaki {
+      	background-color: rgb(255, 255, 255);
+      	text-align: center;
+      	margin-top: 1em;
+      	padding: 1em;
+      }
     </style>
   </head>
 
   <body>
   	<!-- awal navbar -->
-  	<nav class="navbar navbar-default">
-  	  <div class="container">
-  	    <!-- Brand and toggle get grouped for better mobile display -->
-  	    <div class="navbar-header">
-  	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-  	        <span class="sr-only">Toggle navigation</span>
-  	        <span class="icon-bar"></span>
-  	        <span class="icon-bar"></span>
-  	        <span class="icon-bar"></span>
-  	      </button>
-  	      <a class="navbar-brand" href="#">Logo</a>
-  	    </div>
+  	<nav class="navbar navbar-default navbar-fixed-top">
+  	    <div class="container">
+	  	    <!-- Brand and toggle get grouped for better mobile display -->
+  	        <div class="navbar-header">
+  	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+  	            	<span class="sr-only">Toggle navigation</span>
+  	            	<span class="icon-bar"></span>
+  	            	<span class="icon-bar"></span>
+  	            	<span class="icon-bar"></span>
+  	            </button>
+  	            <a class="navbar-brand" href="#">Logo</a>
+  	        </div>
 
-  	    <!-- Collect the nav links, forms, and other content for toggling -->
-  	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  	      <ul class="nav navbar-nav">
-  	        <li><a href="#">Top Wisata</a></li>
-  	        <li><a href="#">Wisata Pantai</a></li>
-  	        <li><a href="#">Wisata Alam</a></li>
-  	        <li class="dropdown">
-  	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wisata Lainnya <span class="caret"></span></a>
-  	          <ul class="dropdown-menu">
-  	            <li><a href="#">Wisata Candi</a></li>
-  	            <li><a href="#">Wisata Kuliner</a></li>
-  	            <li><a href="#">Desa Wisata</a></li>
-  	          </ul>
-  	        </li>
-  	      </ul>
-  	    </div><!-- /.navbar-collapse -->
-  	  </div><!-- /.container-fluid -->
+	  	    <!-- Collect the nav links, forms, and other content for toggling -->
+  	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  	            <ul class="nav navbar-nav">
+  	            	<li><a href="#">Top Wisata</a></li>
+  	            	<li><a href="#">Wisata Pantai</a></li>
+  	            	<li><a href="#">Wisata Alam</a></li>
+  	            	<li class="dropdown">
+  	              		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wisata Lainnya <span class="caret"></span></a>
+  	            		<ul class="dropdown-menu">
+  	                		<li><a href="#">Wisata Candi</a></li>
+  	                		<li><a href="#">Wisata Kuliner</a></li>
+  	                		<li><a href="#">Desa Wisata</a></li>
+  	            		</ul>
+  	        		</li>
+  	            </ul>
+  	        </div><!-- /.navbar-collapse -->
+  	    </div><!-- /.container-fluid -->
   	</nav>
   	<!-- akhir navbar -->
 
   	<!-- awal kontainer utama -->
-  	<div class="container">
+  	<div class="container"  id="main">
   		<!-- awal slider foto -->
   		<div class="row">
-  			<div class="col-md-12" id="slide-kontainer">
+  			<div class="col-md-12">
   				<div id="slide-foto">
   					<div><img src="img/b5.jpg" alt=""></div>
   					<div><img src="img/background.jpg" alt=""></div>
@@ -123,28 +183,48 @@
   			<div class="col-md-12">
   				<!-- item wisata -->
   				<div class="row">
-  					<div class="col-md-2">
-  						foto
-  					</div>
-  					<div class="col-md-10">
-  						<div class="row">
-  							<div class="col-md-12">
-  								Nama Wisata
-  							</div>
+					<div class="kartu-wisata">
+	  					<div class="col-md-12">
+		  					<div class="col-md-2">
+		  						<div class="wadah-foto">
+		  							<img class="foto-wisata" src="img/preloader.gif" alt="">
+		  						</div>
+		  					</div>
+		  					<div class="col-md-10">
+		  						<div class="row">
+		  							<div class="col-md-12">
+		  								<span class="nama-wisata">Nama Wisata</span>
+		  							</div>
+		  						</div>
+		  						<div class="row">
+		  							<div class="col-md-12">
+		  								<p class="alamat-wisata">Alamat wisata jalani aja dulu jadian kagak.
+		  									Alamat wisata jalani aja dulu jadian kagak.
+		  									Alamat wisata jalani aja dulu jadian kagak.
+		  									Alamat wisata jalani aja dulu jadian kagak.
+		  									Alamat wisata jalani aja dulu jadian kagak.
+		  									Alamat wisata jalani aja dulu jadian kagak.
+		  								</p>
+		  							</div>
+		  						</div>
+		  						<div class="row">
+		  							<div class="col-md-3">
+		  								<label>Penilaian: </label>
+		  								<select class="nilai-wisata">
+			  								<option value="1">1</option>
+			  								<option value="2">2</option>
+			  								<option value="3" selected="selected">3</option>
+			  								<option value="4">4</option>
+			  								<option value="5">5</option>
+		  								</select>
+		  							</div>
+		  							<div class="col-md-2 col-md-offset-7">
+		  								<a class="btn btn-info" href="#">Selengkapnya</a>
+		  							</div>
+		  						</div>
+		  					</div>
   						</div>
-  						<div class="row">
-  							<div class="col-md-12">
-  								Alamat
-  							</div>
-  						</div>
-  						<div class="row">
-  							<div class="col-md-3">
-  								Rating
-  							</div>
-  							<div class="col-md-2 col-md-offset-7">
-  								Selengkapnya
-  							</div>
-  						</div>
+  						<div class="clearfix"></div>
   					</div>
   				</div>
   			</div>
@@ -154,7 +234,7 @@
   	<!-- akhir kontainer utama -->
 
   	<!-- awal footer -->
-  	<footer>
+  	<footer class="kaki">
   		<div class="container">
   			Persepsi Kemudahan Kegunaan Sistem Informasi pariwisata di Kabupaten Bantul
   		</div>
@@ -173,6 +253,8 @@
     <script src="dist/js/demo.js"></script>
     <!-- slick slider -->
     <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+    <!-- bar rating -->
+    <script type="text/javascript" src="plugins/jquery-bar-rating/jquery.barrating.min.js"></script>
 
     <script>
     	$('#slide-foto').slick({
@@ -182,6 +264,10 @@
     		centerMode: true
     		// prevArrow: '<span class="glyphicon glyphicon-arrow-left"></span>'
     	});
+    	$('.nilai-wisata').barrating({
+    		theme: 'bootstrap-stars'
+    	});
+    	$('.nilai-wisata').barrating('readonly',true)
     </script>
   </body>
 </html>

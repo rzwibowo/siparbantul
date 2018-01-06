@@ -7,7 +7,8 @@
 $sql = "DELETE FROM wisata WHERE id_wisata=$id";
 
 if ($db->query($sql) === TRUE) {
-    echo "Record deleted successfully";
+    echo "<script> alert('hapus sucess!')</script>";
+    echo "<script>location.href='list_wisata.php';</script>";
 } else {
     echo "Error deleting record: " . $db->error;
 }

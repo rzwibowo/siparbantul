@@ -163,7 +163,9 @@ if (!isset($_SESSION['login_user'])) {
                   <td>" .$data["nama_wisata"]."</td>
                   <td>" .$data["alamat"]. "</td>
                   <td>" .$data["nama_kategori"]. "</td>
-                  <td><a href='edit_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-edit'> Edit </a> &nbsp; <a href='hapus_proses.php?id_wisata=".$data["id_wisata"]."' class='fa fa-trash' data-toggle='modal' data-target='#hapus'> Hapus </a>
+                  <td><a href='view_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-eye'> View </a> &nbsp;
+                  <a href='edit_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-edit'> Edit </a> &nbsp;
+                  <a href='#' onclick='hapus($data[id_wisata])' class='fa fa-trash'> Hapus </a>
                 </td>
                 </tr>";}
                 echo " </table>";
@@ -186,9 +188,12 @@ if (!isset($_SESSION['login_user'])) {
   </div>
 
 <script>
-        function hapus()
-        {    $('#hapus').modal('show');
-        }
+        function hapus(id){
+           if (confirm("Yakin Akan Menghapus Data ini?")){
+                location.href='hapus_wisata.php?id_wisata='+id;
+              }
+            }
+
       </script>
 
       <div id="hapus" class="modal fade" role="dialog">

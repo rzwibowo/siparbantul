@@ -5,7 +5,8 @@ include "../konfigurasi/config.php";
       header("location:../konfigurasi/login.php");
   }else {
     $id_wisata = $_GET['id_wisata'];
-    $result = $db->query("SELECT * FROM wisata WHERE id_wisata ='$id_wisata'")->fetch_assoc();
+    $result = $db->query("SELECT w.nama_wisata nama_wisata,w.alamat alamat,w.deskripsi deskripsi,w.latitude latitude, w.longitude longitude, k.nama_kategori nama_kategori FROM wisata w
+                          JOIN kategori k on w.id_kategori = k.id_kategori  WHERE id_wisata = '$id_wisata'")->fetch_assoc();
   }
 ?>
 
@@ -137,46 +138,38 @@ include "../konfigurasi/config.php";
             <!-- general form elements disabled -->
             <div class="box box-warning">
               <div class="box-header with-border">
-                <h3 class="box-title">Update Data Wisata</h3>
+                <h3 class="box-title">Detail Data Wisata</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
 
-                <form role="form" action="input_proses.php" method="post" enctype="multipart/form-data">
+                <div>
                   <!-- text input -->
-                  <input type="hidden" name="id_wisata" id="id_wisata" value="<?php echo $result['id_wisata']?>">
                   <div class="form-group">
-                    <label>Nama Wisata</label>
-                    <input type="text" class="form-control" placeholder="Enter ..." name="nama_wisata" id="nama_wisata" value="<?php echo $result['nama_wisata']?>">
+                    <label>Nama Wisata : </label>
+                    <span><?php echo $result['nama_wisata']?></span>
                   </div>
                   <!-- textarea -->
                   <div class="form-group">
-                    <label> Alamat</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat" id="alamat"> <?php echo $result['alamat']?></textarea>
+                    <label> Alamat :</label>
+                    <span> <?php echo $result['alamat']?></span>
                   </div>
                   <!-- select -->
                   <div class="form-group">
-                    <label>Kategori</label>
-                    <select class="form-control" name="kategori" id="kategori">
-                      <option>Pilih Kategori Wisata</option>
-                        <?php
-
-                          $sqlkategori = "select * from kategori";
-                          $hasil = mysqli_query($db, $sqlkategori);
-                            while($data=mysqli_fetch_array($hasil)){
-                              ?>
-                               <option  value='<?php echo $data['id_kategori'] ?>' <?php if($data['id_kategori'] == $result['id_kategori']) { echo 'selected="selected"'; } ?> >
-                               <?php echo  $data['nama_kategori'];?></option>
-                               <?php
-                            }
-                        //  $db->close();
-                        ?>
-                    </select>
-                    <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
+                    <label>Kategori :</label>
+                    <span><?php echo  $result['nama_kategori'];?></span>
                   </div>
                   <div class="form-group">
-                    <label>Deskripsi</label>
-                    <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"><?php echo $data['deskripsi']; ?></textarea>
+                    <label>Latitude:</label>
+                    <span><?php echo  $result['latitude'];?></span>
+                  </div>
+                  <div class="form-group">
+                    <label>Longitude:</label>
+                    <span><?php echo  $result['longitude'];?></span>
+                  </div>
+                  <div class="form-group">
+                    <label>Deskripsi:</label>
+                    <span><?php echo $result['deskripsi']; ?></span>
                   </div>
                   <div class='form-group'>
                   <div id="ViewFoto" class="row">
@@ -188,39 +181,12 @@ include "../konfigurasi/config.php";
                   ?>
                   </div>
                 </div>
-                  <div class="form-group">
-                   <label class="control-label">Tambahkan Foto</label>
-                  <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/>
-                   <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
-                  </div>
-                  <div class="form-group">
-                       <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
-                      <a class="btn btn-default pull-right"  href="list_wisata.php">Batal</a>
-                  </div>
+                <div class="form-group">
+                   <a class="btn btn-default pull-left" href="list_wisata.php">Kembali </a>
+                </div>
+              </div>
 
-                  <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                       <!-- konten modal-->
-                      <div class="modal-content">
-                       <!-- heading modal -->
-                       <div class="modal-header">
-                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Konfirmasi Simpan Data Wisata</h4>
-                       </div>
-                        <!-- body modal -->
-                       <div class="modal-body">
-                         <p>Apakah anda yakin data yang anda masukan sudah benar?...</p>
-                       </div>
-                        <!-- footer modal -->
-                        <div class="modal-footer">
-                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal"> Batal Simpan</button>
-                         <button type="submit" name="submit" class="btn btn-warning"  /> Simpan </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </form>
+              </div>
                </div>
                 <!-- /.box-body -->
               </div>

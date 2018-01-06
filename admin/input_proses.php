@@ -1,60 +1,140 @@
 <?php
 
 include "../konfigurasi/sesi.php";
+
 if (!isset($_SESSION['login_user'])) {
-  
-  header("location:../konfigurasi/login.php");
+header("location:../konfigurasi/login.php");
 }
-if (isset($_GET['submit'])) {
-	
+else{
+  if (isset($_POST['submit'])) {
+    if(!isset($_POST['id_wisata'])){
+        $nama_wisata = $_POST['nama_wisata'];
+        $alamat = $_POST['alamat'];
+        $kategori = $_POST['kategori'];
+        $deskripsi = $_POST['deskripsi'];
+        $FILE      = $_FILES['foto'];
+        $query = "insert into wisata values ( '', '$nama_wisata', '$alamat', $kategori, '$deskripsi')";
+        if ($db->query($query)===TRUE)
+        {
+          //ambil id terakhir insert
+          $id_wisata = mysqli_insert_id($db);
+          //Upload foto
+          if(!isset($FILE['tmp_name']))
+          {
+            echo 'Gambar Harus diisi';
+          }
+          else
+          {
+              for ($i=0; $i < count($FILE['name']); $i++) {
+                  $errors= array();
+                  $file_name = $FILE['name'][$i];
+                  $file_size =$FILE['size'][$i];
+                  $file_tmp =$FILE['tmp_name'][$i];
+                  $file_type=$FILE['type'][$i];
+                  $fileNameUpload="";
+                  $file_ext = explode('.',$file_name);
+                  $file_ext=strtolower(end($file_ext));
 
-$nama_wisata = $_GET['nama_wisata'];
-$alamat = $_GET['alamat'];
-$kategori = $_GET['kategori'];
-$deskripsi = $_GET['deskripsi'];
+                  $expensions= array("jpeg","jpg","png");
+                  $date = date('mdYhisa', time());
+                  $rand=rand(10000,99999);
+                  $namfoto=$date.$rand;
+                  $fileNameUpload= $namfoto.'.'.$file_ext;
+                  if(in_array($file_ext,$expensions)=== false){
+                     $errors[]="Ekstensi tidak diijinkan, silahkan pilih file JPEG atau PNG";
+                  }
 
-	$query = "insert into wisata values ( '', '$nama_wisata', '$alamat', $kategori, '$deskripsi')";
+                  if($file_size > 2097152){
+                     $errors[]='Ukuran file tidak boleh melebihi 2 MB';
+                  }
 
-	if ($db->query($query)===TRUE){
-		//ambil id terakhir insert
-		$id_wisata = mysqli_insert_id($db);
-		
-	
-}
-	
-		 else {
-			echo "<script>alert('Mohon Masukan Data Dengan Benar')</script>";
-			echo "<meta http-equiv='refresh' content='1 url=input.php'>";
-			}
-		
-			//Upload foto
-			if(!isset($_FILES['fotoSatu'])){
-        echo 'Pilih file gambar';
-    }
-    else
-    {
- $image   = addslashes(file_get_contents($_FILES['fotoSatu']['tmp_name']));
-     $image_name = addslashes($_FILES['fotoSatu']['name']);
-        $image_size = getimagesize($_FILES['fotoSatu']['tmp_name']);
-    if($image_size == false){
-   echo 'File yang anda pilih Bukan gambar';
+                  if(empty($errors)==true){
+                     move_uploaded_file($file_tmp,"../Images/".$fileNameUpload);
+                     if(!$insert = $db->query("INSERT into foto VALUES ('', $id_wisata, '$fileNameUpload')"))
+                      {
+                       echo 'Gagal upload gambar';
+                      }
+                  }
+          }
+          if(empty($errors)==true){
+             // Informasi berhasil dan kembali ke inputan
+             echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+          }
+          }
         }
         else
         {
-          if(!$insert = mysql_query("INSERT into foto VALUES ('', 'id_wisata', '$imgContent')"))
-            {
-                echo 'Gagal upload gambar';
-     } else
-            {
-        // Informasi berhasil dan kembali ke inputan
-  echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
-     }
+          echo "<script>alert('Mohon Masukan Data Dengan Benar')</script>";
+          echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+        }
+    }else {
+      $id_wisata = $_POST['id_wisata'];
+      $nama_wisata = $_POST['nama_wisata'];
+      $alamat = $_POST['alamat'];
+      $kategori = $_POST['kategori'];
+      $deskripsi = $_POST['deskripsi'];
+      $FILE      = $_FILES['foto'];
+      $query = "UPDATE wisata SET nama_wisata='$nama_wisata',alamat='$alamat',id_kategori='$kategori',deskripsi='$deskripsi' WHERE id_wisata=$id_wisata";
+      if ($db->query($query)===TRUE)
+      {
+        //Upload foto
+        if(!isset($FILE['tmp_name']))
+        {
+          echo 'Gambar Harus diisi';
+        }
+        else
+        {
+          if(count($FILE['name']) > 0 ){
+          $errors= array();
+          $query = "DELETE FROM foto WHERE id_wisata='$id_wisata'";
+          if ($db->query($query)===TRUE)
+           {
+            for ($i=0; $i < count($FILE['name']); $i++) {
+                $file_name = $FILE['name'][$i];
+                $file_size =$FILE['size'][$i];
+                $file_tmp =$FILE['tmp_name'][$i];
+                $file_type=$FILE['type'][$i];
+                $fileNameUpload="";
+                $file_ext = explode('.',$file_name);
+                $file_ext=strtolower(end($file_ext));
 
-     }
+                $expensions= array("jpeg","jpg","png");
+                $date = date('mdYhisa', time());
+                $rand=rand(10000,99999);
+                $namfoto=$date.$rand;
+                $fileNameUpload= $namfoto.'.'.$file_ext;
+                if(in_array($file_ext,$expensions)=== false){
+                   $errors[]="Ekstensi tidak diijinkan, silahkan pilih file JPEG atau PNG";
+                }
+
+                if($file_size > 2097152){
+                   $errors[]='Ukuran file tidak boleh melebihi 2 MB';
+                }
+
+                if(empty($errors)==true){
+                   move_uploaded_file($file_tmp,"../Images/".$fileNameUpload);
+                   if(!$insert = $db->query("INSERT into foto VALUES ('', $id_wisata, '$fileNameUpload')"))
+                    {
+                     echo 'Gagal upload gambar';
+                    }
+                }
+            }
+            if(empty($errors)==true){
+               // Informasi berhasil dan kembali ke inputan
+               echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+            }
+        }
+      }else {
+         echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+      }
+      }
+      }
+      else
+      {
+       echo "<script>alert('Mohon Masukan Data Dengan Benar')</script>";
+        echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+      }
     }
-
+  }
 }
-	
-
-	
 ?>

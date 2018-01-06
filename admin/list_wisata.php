@@ -2,7 +2,7 @@
 
 include "../konfigurasi/sesi.php";
 if (!isset($_SESSION['login_user'])) {
-  
+
   header("location:../konfigurasi/login.php");
 }
 ?>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['login_user'])) {
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-  
+
 <div class="wrapper">
 
   <header class="main-header">
@@ -58,11 +58,11 @@ if (!isset($_SESSION['login_user'])) {
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
 		</a>
-		
+
 <div class="navbar-custom-menu">
-	 
+
         <ul class="nav navbar-nav">
-         
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -79,17 +79,17 @@ if (!isset($_SESSION['login_user'])) {
                   <small>Since November. 2017</small>
                 </p>
               </li>
-             
+
               <!-- Menu Footer-->
               <li class="user-footer">
-              
+
                 <div class="pull-right">
                   <a href="../konfigurasi/logout.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
-         
+
         </ul>
       </div>
     </nav>
@@ -113,7 +113,7 @@ if (!isset($_SESSION['login_user'])) {
               </a>
         </li>
         <li>
-          <a href="input.php">
+          <a href="input_wisata.php">
             <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data</span>
               </a>
         </li>
@@ -135,9 +135,9 @@ if (!isset($_SESSION['login_user'])) {
       <div class="row">
         <div class="col-md-12">
           <div class="box">
-          
+
             <div class="box-body">
-              <?php 
+              <?php
                       include "../konfigurasi/config.php";
                       $sqlwisata = "SELECT wisata.id_wisata, wisata.nama_wisata, wisata.alamat, wisata.id_kategori, kategori.nama_kategori FROM wisata, kategori WHERE wisata.id_kategori = kategori.id_kategori";
                     $hasil = $db->query($sqlwisata);
@@ -163,7 +163,7 @@ if (!isset($_SESSION['login_user'])) {
                   <td>" .$data["nama_wisata"]."</td>
                   <td>" .$data["alamat"]. "</td>
                   <td>" .$data["nama_kategori"]. "</td>
-                  <td><a href='' class='fa fa-edit'> Edit </a> &nbsp; <a href='hapus_proses.php?id_wisata=".$data["id_wisata"]."' class='fa fa-trash' data-toggle='modal' data-target='#hapus'> Hapus </a>
+                  <td><a href='edit_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-edit'> Edit </a> &nbsp; <a href='hapus_proses.php?id_wisata=".$data["id_wisata"]."' class='fa fa-trash' data-toggle='modal' data-target='#hapus'> Hapus </a>
                 </td>
                 </tr>";}
                 echo " </table>";
@@ -171,11 +171,11 @@ if (!isset($_SESSION['login_user'])) {
                       echo "0 results";
                      }
                     ?>
-                    
+
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-             
+
             </div>
           </div>
           <!-- /.box -->
@@ -201,19 +201,19 @@ if (!isset($_SESSION['login_user'])) {
                               <h4 class="modal-title">Input Kategori</h4>
                            </div>
                              <!-- body modal -->
-                           <div class="modal-body">                            
+                           <div class="modal-body">
                               <div class="box-body">
                                     <p>Yakin menghapus data ini?...</p>
 
-                                    
+
                               </div>
-                           
+
                             <!-- footer modal -->
                            <div class="modal-footer">
                              <button type="button" class="btn btn-default pull-left" data-dismiss="modal"> Batal </button>
                              <button type="button" id="ya"> Hapus </button>
                            </div>
-                         
+
                          </div>
                          </div>
                         </div>

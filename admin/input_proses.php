@@ -11,9 +11,11 @@ else{
         $nama_wisata = $_POST['nama_wisata'];
         $alamat = $_POST['alamat'];
         $kategori = $_POST['kategori'];
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
         $deskripsi = $_POST['deskripsi'];
         $FILE      = $_FILES['foto'];
-        $query = "insert into wisata values ( '', '$nama_wisata', '$alamat', $kategori, '$deskripsi')";
+        $query = "insert into wisata values ( '', '$nama_wisata', '$alamat', $kategori, '$deskripsi',$latitude,$longitude)";
         if ($db->query($query)===TRUE)
         {
           //ambil id terakhir insert
@@ -72,9 +74,11 @@ else{
       $nama_wisata = $_POST['nama_wisata'];
       $alamat = $_POST['alamat'];
       $kategori = $_POST['kategori'];
+      $latitude = $_POST['latitude'];
+      $longitude = $_POST['longitude'];
       $deskripsi = $_POST['deskripsi'];
       $FILE      = $_FILES['foto'];
-      $query = "UPDATE wisata SET nama_wisata='$nama_wisata',alamat='$alamat',id_kategori='$kategori',deskripsi='$deskripsi' WHERE id_wisata=$id_wisata";
+      $query = "UPDATE wisata SET nama_wisata='$nama_wisata',alamat='$alamat',id_kategori='$kategori',latitude='$latitude',longitude='$longitude', deskripsi='$deskripsi' WHERE id_wisata=$id_wisata";
       if ($db->query($query)===TRUE)
       {
         //Upload foto

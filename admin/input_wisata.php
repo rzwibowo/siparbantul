@@ -167,6 +167,14 @@ input[type=file]{
               <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
             </div>
             <div class="form-group">
+              <label>Latitude</label>
+                <input type="text" class="form-control" placeholder="Enter ..." name="latitude" id="latitude">
+            </div>
+            <div class="form-group">
+              <label>Longitude</label>
+                <input type="text" class="form-control" placeholder="Enter ..." name="longitude" id="longitude">
+            </div>
+            <div class="form-group">
               <label>Deskripsi</label>
               <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"></textarea>
             </div>

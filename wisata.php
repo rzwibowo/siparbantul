@@ -6,7 +6,7 @@ include "konfigurasi/sesi.php";
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PKKSIP BANTUL</title>
+  <title>PKKSIP BANTUL</title>  <!-- title dibikin format "Nama Wisata | PKKSIP BANTUL" -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -101,75 +101,127 @@ include "konfigurasi/sesi.php";
   					<div><img src="img/background.jpg" alt=""></div>
   					<div><img src="img/content.jpg" alt=""></div>
   				</div>
-  				<div id="kata-pengantar">
-  					<p>Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. Ini adalah Kata Pengantar. </p>
-  				</div>
   			</div>
   		</div>
   		<!-- akhir slider foto -->
 
-  		<!-- awal daftar wisata -->
-      <?php
-      $Query = "SELECT * FROM wisata";
-      $result = $db->query($Query);
-       while($data=$result->fetch_array()){
-      ?>
-  		<div class="row">
-  			<div class="col-md-12">
-  				<!-- item wisata -->
-  				<div class="row">
-					<div class="kartu-wisata">
-	  					<div class="col-md-12">
-		  					<div class="col-md-2">
-		  						<div class="wadah-foto">
-                    <?php
-                    $resultFoto = $db->query("SELECT nama FROM foto WHERE id_wisata=$data[id_wisata] LIMIT 1")->fetch_assoc();
-                    if($resultFoto  !== NULL){
-                      echo 	"<img class='foto-wisata' src='Images/".$resultFoto['nama']."' alt=''>";
-                    }else {
-                      echo "<img class='foto-wisata' src'/img/preloader.gif' alt=''>";
-                    }
-                    ?>
-		  						</div>
-		  					</div>
-		  					<div class="col-md-10">
-		  						<div class="row">
-		  							<div class="col-md-12">
-		  								<span class="nama-wisata"><?php echo $data['nama_wisata'] ?></span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col-md-12">
-		  								<p class="alamat-wisata"><?php echo $data['alamat']?>
-		  								</p>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col-md-3">
-		  								<label>Penilaian: </label>
-		  								<select class="nilai-wisata">
-			  								<option value="1">1</option>
-			  								<option value="2">2</option>
-			  								<option value="3" selected="selected">3</option>
-			  								<option value="4">4</option>
-			  								<option value="5">5</option>
-		  								</select>
-		  							</div>
-		  							<div class="col-md-2 col-md-offset-7">
-		  								<a class="btn btn-info" href="<?php echo $data['id_wisata'] ?>">Selengkapnya</a>
-		  							</div>
-		  						</div>
-		  					</div>
-  						</div>
-  						<div class="clearfix"></div>
-  					</div>
-  				</div>
-  			</div>
-  		</div>
-      <?php
-      }
-       ?>
-  		<!-- akhir daftar wisata -->
+  		<!-- awal info wisata -->
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="info-wisata">
+            <div class="row">
+              <div class="col-md-9">
+                <span class="nama-wisata detail">Nama Wisata</span>
+              </div>
+              <div class="col-md-3 wadah-nilai">
+                <select class="nilai-wisata">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected="selected">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="alamat-wisata detail">
+                  Alamat wisata jalani aja dulu jadian kagak. Alamat wisata jalani aja dulu jadian kagak. Alamat wisata jalani aja dulu jadian kagak. Alamat wisata jalani aja dulu jadian kagak. Alamat wisata jalani aja dulu jadian kagak. Alamat wisata jalani aja dulu jadian kagak.
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="deskripsi-wisata detail">
+                  Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu. Deskripsi perasaanku kepadamu.
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);">
+                  <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
+                  peta di sini
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- akhir info wisata -->
+
+      <!-- awal form ulasan wisata -->
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="input-ulasan">
+            <form action="">
+              <div class="row">
+                <label for="nama-pengulas" class="col-md-2 control-label">Nama:</label>
+                <div class="col-md-4">
+                  <input type="text" id="nama-pengulas" name="nama-pengulas" class="form-control" placeholder="Isikan nama anda">
+                </div>
+                <label for="nilai-wisata-input" class="col-md-1 col-md-offset-2 control-label">Nilai:</label>
+                <div class="col-md-3 wadah-nilai">
+                  <select class="nilai-ulasan" id="nilai-ulasan" name="nilai-ulasan">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <label for="uraian-ulasan" class="col-md-2 control-label">Ulasan:</label>
+                <div class="col-md-10">
+                  <textarea name="uraian-ulasan" id="uraian-ulasan" cols="30" rows="3" class="form-control" placeholder="Deskripsikan penilaian anda terhadap wisata ini"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <input type="submit" value="Kirim Ulasan" class="btn btn-primary">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- akhir form ulasan wisata -->
+
+      <!-- awal daftar ulasan -->
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="kartu-ulasan">
+            <div class="row">
+              <div class="col-md-6">
+                <span class="nama-pengulas-daftar">
+                  Mantan
+                </span>
+              </div>
+              <div class="col-md-6 wadah-nilai">
+                <select class="nilai-wisata" id="nilai-wisata">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4" selected="selected">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="uraian-ulasan-daftar">
+                  Yakinkan aku Tuhan Dia bukan milikku Biarkan waktu waktu Hapus aku…
+                  Sadarkan aku Tuhan Dia bukan milikku Biarkan waktu waktu Hapus aku…
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- akhir daftar ulasan -->
   	</div>
   	<!-- akhir kontainer utama -->
 
@@ -206,6 +258,9 @@ include "konfigurasi/sesi.php";
     	$('.nilai-wisata').barrating({
     		theme: 'bootstrap-stars'
     	});
+      $('.nilai-ulasan').barrating({
+        theme: 'bootstrap-stars'
+      });
     	$('.nilai-wisata').barrating('readonly',true)
     </script>
   </body>

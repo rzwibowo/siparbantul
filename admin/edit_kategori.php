@@ -4,8 +4,8 @@ include "../konfigurasi/config.php";
   if (!isset($_SESSION['login_user'])) {
       header("location:../konfigurasi/login.php");
   }else {
-    $id_wisata = $_GET['id_wisata'];
-    $result = $db->query("SELECT * FROM wisata WHERE id_wisata ='$id_wisata'")->fetch_assoc();
+    $id_kategori = $_GET['id_kategori'];
+    $result = $db->query("SELECT * FROM kategori WHERE id_kategori ='$id_kategori'")->fetch_assoc();
   }
 ?>
 
@@ -122,9 +122,9 @@ include "../konfigurasi/config.php";
                 <i class="fa fa-fw fa-th-list"></i> <span>List Wisata</span>
               </a>
             </li>
-            <li class="">
-              <a href="input_wisata.php">
-                <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data Wisata</span>
+            <li class="active treeview">
+              <a href="input_kategori.php">
+                <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data Kategori</span>
               </a>
             </li>
         </section>
@@ -142,65 +142,21 @@ include "../konfigurasi/config.php";
             <!-- general form elements disabled -->
             <div class="box box-warning">
               <div class="box-header with-border">
-                <h3 class="box-title">Update Data Wisata</h3>
+                <h3 class="box-title">Update Data kategori Wisata</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
 
-                <form role="form" action="input_proses.php" method="post" enctype="multipart/form-data">
+                <form role="form" action="proses_kategori.php" method="post">
                   <!-- text input -->
-                  <input type="hidden" name="id_wisata" id="id_wisata" value="<?php echo $result['id_wisata']?>">
+                  <input type="hidden" name="id_kategori" id="id_kategori" value="<?php echo $result['id_kategori']?>">
                   <div class="form-group">
-                    <label>Nama Wisata</label>
-                    <input type="text" class="form-control" placeholder="Enter ..." name="nama_wisata" id="nama_wisata" value="<?php echo $result['nama_wisata']?>">
-                  </div>
-                  <!-- textarea -->
-                  <div class="form-group">
-                    <label> Alamat</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat" id="alamat"> <?php echo $result['alamat']?></textarea>
-                  </div>
-                  <!-- select -->
-                  <div class="form-group">
-                    <label>Kategori</label>
-                    <select class="form-control" name="kategori" id="kategori">
-                      <option>Pilih Kategori Wisata</option>
-                        <?php
-
-                          $sqlkategori = "select * from kategori";
-                          $hasil = mysqli_query($db, $sqlkategori);
-                            while($data=mysqli_fetch_array($hasil)){
-                              ?>
-                               <option  value='<?php echo $data['id_kategori'] ?>' <?php if($data['id_kategori'] == $result['id_kategori']) { echo 'selected="selected"'; } ?> >
-                               <?php echo  $data['nama_kategori'];?></option>
-                               <?php
-                            }
-                        //  $db->close();
-                        ?>
-                    </select>
-                    <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
-                  </div>
-                  <div class="form-group">
-                    <label>Deskripsi</label>
-                    <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"><?php echo $data['deskripsi']; ?></textarea>
-                  </div>
-                  <div class='form-group'>
-                  <div id="ViewFoto" class="row">
-                  <?php
-                   $query = $db->query("SELECT * FROM foto WHERE id_wisata=$id_wisata");
-                      while($Foto=mysqli_fetch_array($query)){
-                      echo "<div class='col-md-4'><img src='../Images/".$Foto['nama']."' class='img-thumbnail'></img></div>";
-                      }
-                  ?>
-                  </div>
-                </div>
-                  <div class="form-group">
-                   <label class="control-label">Tambahkan Foto</label>
-                  <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/>
-                   <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
+                    <label>Nama Kategori</label>
+                    <input type="text" class="form-control" placeholder="Enter ..." name="kategori" id="kategori" value="<?php echo $result['nama_kategori']?>">
                   </div>
                   <div class="form-group">
                        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
-                      <a class="btn btn-default pull-right"  href="list_wisata.php">Batal</a>
+                      <a class="btn btn-default pull-right"  href="list_kategori.php">Batal</a>
                   </div>
 
                   <div id="myModal" class="modal fade" role="dialog">
@@ -210,7 +166,7 @@ include "../konfigurasi/config.php";
                        <!-- heading modal -->
                        <div class="modal-header">
                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Konfirmasi Simpan Data Wisata</h4>
+                          <h4 class="modal-title">Konfirmasi Simpan Data Kategori Wisata</h4>
                        </div>
                         <!-- body modal -->
                        <div class="modal-body">

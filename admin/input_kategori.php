@@ -110,7 +110,7 @@ input[type=file]{
       </li>
       <li>
         <a href="list_kategori.php">
-          <i class="fa fa-fw fa-th-list"></i> <span>List Kategori</span>
+          <i class="fa fa-fw fa-th-list"></i> <span>List kategori</span>
         </a>
       </li>
       <li>
@@ -119,8 +119,8 @@ input[type=file]{
         </a>
       </li>
       <li class="active treeview">
-        <a href="input_wisata.php">
-          <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data</span>
+        <a href="input_kategori.php">
+          <i class="fa fa-fw fa-file-text-o"></i> <span>Input Kategori</span>
         </a>
       </li>
   </section>
@@ -138,63 +138,16 @@ input[type=file]{
       <!-- general form elements disabled -->
       <div class="box box-warning">
         <div class="box-header with-border">
-          <h3 class="box-title">Input Data Wisata</h3>
+          <h3 class="box-title">Input Data Kategori Wisata</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
 
-          <form role="form" action="input_proses.php" method="post" enctype="multipart/form-data">
+          <form role="form" action="proses_kategori.php" method="post">
             <!-- text input -->
             <div class="form-group">
-              <label>Nama Wisata</label>
-              <input type="text" class="form-control" placeholder="Enter ..." name="nama_wisata" id="nama_wisata">
-            </div>
-            <!-- textarea -->
-            <div class="form-group">
-              <label> Alamat</label>
-              <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat" id="alamat"></textarea>
-            </div>
-            <!-- select -->
-            <div class="form-group">
-              <label>Kategori</label>
-              <select class="form-control" name="kategori" id="kategori">
-                <option>Pilih Kategori Wisata</option>
-                  <?php
-                    include "../konfigurasi/config.php";
-                    $sqlkategori = "select * from kategori";
-                    $hasil = mysqli_query($db, $sqlkategori);
-                      while($data=mysqli_fetch_array($hasil)){
-                        echo "<option value=$data[id_kategori]>$data[nama_kategori]</option>";
-                      }
-                    $db->close();
-                  ?>
-              </select>
-              <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
-            </div>
-            <div class="form-group">
-              <label>Latitude</label>
-                <input type="text" class="form-control" placeholder="Enter ..." name="latitude" id="latitude">
-            </div>
-            <div class="form-group">
-              <label>Longitude</label>
-                <input type="text" class="form-control" placeholder="Enter ..." name="longitude" id="longitude">
-            </div>
-            <div class="form-group">
-              <label>Deskripsi</label>
-              <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"></textarea>
-            </div>
-            <div class="form-group">
-					    <div class="col-md-4">
-						        <label for="Foto"></label>
-					     </div>
-				    	 <div class="col-md-8">
-						       <div id="ViewFoto"></div>
-					      </div>
-				   </div>
-            <div class="form-group">
-             <label class="control-label">Tambahkan Foto</label>
-             <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/>
-             <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
+              <label>Nama Kategori</label>
+              <input type="text" class="form-control" placeholder="Enter ..." name="kategori" id="kategori">
             </div>
             <div class="form-group">
                  <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
@@ -208,7 +161,7 @@ input[type=file]{
                  <!-- heading modal -->
                  <div class="modal-header">
                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Konfirmasi Simpan Data Wisata</h4>
+                    <h4 class="modal-title">Konfirmasi Simpan Data Kategori Wisata</h4>
                  </div>
                   <!-- body modal -->
                  <div class="modal-body">

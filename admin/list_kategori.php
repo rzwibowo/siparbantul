@@ -108,19 +108,19 @@ if (!isset($_SESSION['login_user'])) {
             <i class="fa fa-dashboard"></i> <span>Beranda</span>
               </a>
         </li>
-        <li class="">
+        <li  class="active treeview">
           <a href="list_kategori.php">
-            <i class="fa fa-fw fa-th-list"></i> <span>List kategori</span>
+            <i class="fa fa-fw fa-th-list"></i> <span>List Kategori</span>
               </a>
         </li>
-        <li class="active treeview">
+        <li>
           <a href="list_wisata.php">
             <i class="fa fa-fw fa-th-list"></i> <span>List Wisata</span>
               </a>
         </li>
-        <li>
-          <a href="input_wisata.php">
-            <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data Wisata</span>
+        <li  class="">
+          <a href="input_kategori.php">
+            <i class="fa fa-fw fa-file-text-o"></i> <span>Input Kategori</span>
               </a>
         </li>
     </section>
@@ -132,7 +132,7 @@ if (!isset($_SESSION['login_user'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Daftar Destinasi Wisata
+        Daftar Kategori Wisata
         <small>All Data <i class="fa fa-fw fa-bar-chart"></i></small>
       </h1>
     </section>
@@ -145,7 +145,7 @@ if (!isset($_SESSION['login_user'])) {
             <div class="box-body">
               <?php
 
-                    $sqlwisata = "SELECT wisata.id_wisata, wisata.nama_wisata, wisata.alamat, wisata.id_kategori, kategori.nama_kategori FROM wisata, kategori WHERE wisata.id_kategori = kategori.id_kategori";
+                    $sqlwisata = "SELECT * FROM kategori";
                     $hasil = $db->query($sqlwisata);
                     $nomer = 0;
                      if ($hasil->num_rows > 0) {
@@ -153,25 +153,19 @@ if (!isset($_SESSION['login_user'])) {
                          <table class='table table-bordered'>
                 <tr>
                   <th style='width: 10px'>No.</th>
-                  <th>Nama Wisata</th>
-                  <th> Alamat</th>
-                  <th style='width: 120px'> Kategori</th>
+                  <th>Nama Kategori</th>
                   <th style='width: 150px'> Tindakan </th>
                 </tr> ";
 
                     while($data=$hasil->fetch_assoc()){
                       $nomer++;
-
-                      $id = $data["id_wisata"];
                       echo "
-                <tr>
+                 <tr>
                   <td>  $nomer </td>
-                  <td>" .$data["nama_wisata"]."</td>
-                  <td>" .$data["alamat"]. "</td>
-                  <td>" .$data["nama_kategori"]. "</td>
-                  <td><a href='view_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-eye'> View </a> &nbsp;
-                  <a href='edit_wisata.php?id_wisata=".$data["id_wisata"]."' class='fa fa-edit'> Edit </a> &nbsp;
-                  <a href='#' onclick='hapus($data[id_wisata])' class='fa fa-trash'> Hapus </a>
+                  <td>" .$data["nama_kategori"]."</td>
+                  <td><a href='view_kategori.php?id_kategori=".$data["id_kategori"]."' class='fa fa-eye'> View </a> &nbsp;
+                  <a href='edit_kategori.php?id_kategori=".$data["id_kategori"]."' class='fa fa-edit'> Edit </a> &nbsp;
+                  <a href='#' onclick='hapus($data[id_kategori])' class='fa fa-trash'> Hapus </a>
                 </td>
                 </tr>";}
                 echo " </table>";
@@ -196,7 +190,7 @@ if (!isset($_SESSION['login_user'])) {
 <script>
         function hapus(id){
            if (confirm("Yakin Akan Menghapus Data ini?")){
-                location.href='hapus_wisata.php?id_wisata='+id;
+                location.href='hapus_kategori.php?id_kategori='+id;
               }
             }
 

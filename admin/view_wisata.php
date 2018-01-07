@@ -114,13 +114,18 @@ include "../konfigurasi/config.php";
               </a>
             </li>
             <li>
+              <a href="list_kategori.php">
+                <i class="fa fa-fw fa-th-list"></i> <span>List Kategori</span>
+              </a>
+            </li>
+            <li>
               <a href="list_wisata.php">
                 <i class="fa fa-fw fa-th-list"></i> <span>List Wisata</span>
               </a>
             </li>
             <li class="active treeview">
-              <a href="input.php">
-                <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data</span>
+              <a href="input_wisata.php">
+                <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data Wisata</span>
               </a>
             </li>
         </section>

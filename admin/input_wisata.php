@@ -193,6 +193,7 @@ input[type=file]{
             </div>
             <div class="form-group">
                  <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
+                  <a class="btn btn-default pull-right" href="list_wisata.php" >Batal</a>
             </div>
 
             <div id="myModal" class="modal fade" role="dialog">

@@ -1,6 +1,7 @@
 <?php
 
 include "../konfigurasi/sesi.php";
+include "../konfigurasi/config.php";
 if (!isset($_SESSION['login_user'])) {
 
   header("location:../konfigurasi/login.php");
@@ -138,8 +139,8 @@ if (!isset($_SESSION['login_user'])) {
 
             <div class="box-body">
               <?php
-                      include "../konfigurasi/config.php";
-                      $sqlwisata = "SELECT wisata.id_wisata, wisata.nama_wisata, wisata.alamat, wisata.id_kategori, kategori.nama_kategori FROM wisata, kategori WHERE wisata.id_kategori = kategori.id_kategori";
+
+                    $sqlwisata = "SELECT wisata.id_wisata, wisata.nama_wisata, wisata.alamat, wisata.id_kategori, kategori.nama_kategori FROM wisata, kategori WHERE wisata.id_kategori = kategori.id_kategori";
                     $hasil = $db->query($sqlwisata);
                     $nomer = 0;
                      if ($hasil->num_rows > 0) {

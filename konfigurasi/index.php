@@ -95,8 +95,13 @@ include "session.php";
               </a>
         </li>
         <li>
-          <a href="../admin/input.php">
+          <a href="../admin/input_wisata.php">
             <i class="fa fa-fw fa-file-text-o"></i> <span>Input Data</span>
+          </a>
+        </li>
+        <li>
+          <a href="../admin/input_kategori.php">
+            <i class="fa fa-fw fa-file-text-o"></i> <span>Input Kategori</span>
           </a>
         </li>
        </section>
@@ -177,6 +182,6 @@ include "session.php";
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 
-    
+
   </body>
 </html>

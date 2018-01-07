@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Jan 2018 pada 14.39
+-- Generation Time: 07 Jan 2018 pada 14.55
 -- Versi Server: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -89,7 +89,16 @@ INSERT INTO `foto` (`id_foto`, `id_wisata`, `nama`) VALUES
 (17, 66, '01052018092050am73479.png'),
 (18, 66, '01052018092051am68389.png'),
 (21, 4, '01052018054153pm52650.png'),
-(22, 4, '01052018054154pm26864.png');
+(22, 4, '01052018054154pm26864.png'),
+(23, 68, '01062018025125pm16395.jpg'),
+(24, 68, '01062018025126pm12059.jpg'),
+(25, 69, '01062018025210pm97828.png'),
+(26, 69, '01062018025210pm69572.jpg'),
+(27, 70, '01062018025251pm17673.png'),
+(28, 70, '01062018025251pm68734.jpg'),
+(29, 70, '01062018025251pm49768.jpg'),
+(30, 71, '01062018025310pm62282.jpg'),
+(31, 71, '01062018025310pm58571.jpg');
 
 -- --------------------------------------------------------
 
@@ -107,9 +116,12 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
-(1, 'Wisata Alam'),
+(1, 'Wisata Alam Tes'),
 (2, 'Wisata Pantai'),
-(10, 'Desa Wisata');
+(10, 'Desa Wisata'),
+(13, 'Wisata Santai'),
+(14, 'kategori 1'),
+(15, 'Kategori 2');
 
 -- --------------------------------------------------------
 
@@ -145,29 +157,18 @@ CREATE TABLE `wisata` (
   `nama_wisata` varchar(30) NOT NULL,
   `alamat` varchar(100) NOT NULL,
   `id_kategori` int(2) NOT NULL,
-  `deskripsi` text NOT NULL
+  `deskripsi` text NOT NULL,
+  `latitude` text NOT NULL,
+  `longitude` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `wisata`
 --
 
-INSERT INTO `wisata` (`id_wisata`, `nama_wisata`, `alamat`, `id_kategori`, `deskripsi`) VALUES
-(4, 'Parang Kusumo tumoro', 'Dekat Parang Tritis ff', 1, 'okk'),
-(6, 'Jurang Pulosari', 'srandakan bantul', 1, 'bisa renang sepuasnya'),
-(7, 'Goa cemara', 'bantul', 1, 'keren'),
-(31, 'Test', 'Alamat', 1, 'test'),
-(32, 'Test', 'Alamat', 1, 'test'),
-(33, 'Test', 'Alamat', 1, 'test'),
-(34, 'Test', 'Alamat', 1, 'test'),
-(60, 'Coba', 'Jalan R.A.Kartini No. 9, RT. 10 / RW. 4, Cilandak Barat, Cilandak, RT.10/RW.4, Cilandak Bar., Ciland', 1, 'zxaxas'),
-(61, 'Test', 'Jalan R.A.Kartini No. 9, RT. 10 / RW. 4, Cilandak Barat, Cilandak, RT.10/RW.4, Cilandak Bar., Ciland', 1, 'ffsffsfsff'),
-(62, 'ahhaha', 'sdsdsd', 2, 'sdsddsd'),
-(63, 'ahhaha', 'sdsdsd', 2, 'sdsddsd'),
-(64, 'ahhaha', 'sdsdsd', 2, 'sdsddsd'),
-(65, 'ahhaha', 'sdsdsd', 2, 'sdsddsd'),
-(66, 'ahhaha', 'sdsdsd', 2, 'sdsddsd'),
-(67, 'Parang Kusumo', ' Dekat Parang Tritis', 2, '');
+INSERT INTO `wisata` (`id_wisata`, `nama_wisata`, `alamat`, `id_kategori`, `deskripsi`, `latitude`, `longitude`) VALUES
+(70, 'Test Latitude', 'Jalan R.A.Kartini No. 9, RT. 10 / RW. 4, Cilandak Barat, Cilandak, RT.10/RW.4, Cilandak Bar., Ciland', 1, '', '-6.297603', '106.767275'),
+(71, 'Test Latitude', 'Jalan R.A.Kartini No. 9, RT. 10 / RW. 4, Cilandak Barat, Cilandak, RT.10/RW.4, Cilandak Bar., Ciland', 1, '', '-6.297603', '106.767275');
 
 --
 -- Indexes for dumped tables
@@ -212,12 +213,12 @@ ALTER TABLE `wisata`
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id_foto` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_foto` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_kategori` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `ulasan_penilaian`
 --
@@ -227,7 +228,7 @@ ALTER TABLE `ulasan_penilaian`
 -- AUTO_INCREMENT for table `wisata`
 --
 ALTER TABLE `wisata`
-  MODIFY `id_wisata` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;COMMIT;
+  MODIFY `id_wisata` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,11 +1,15 @@
 <?php
 include "konfigurasi/sesi.php";
+$id_wisata = $_GET['id_wisata'];
+$result = $db->query("SELECT * FROM wisata WHERE id_wisata ='$id_wisata'")->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html>
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <title>PKKSIP BANTUL</title>  <!-- title dibikin format "Nama Wisata | PKKSIP BANTUL" -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -52,7 +56,18 @@ include "konfigurasi/sesi.php";
       .example-modal .modal {
       background: transparent !important;
       }*/
-      
+
+      /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+              height: 100%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
     </style>
   </head>
 
@@ -111,7 +126,7 @@ include "konfigurasi/sesi.php";
           <div class="info-wisata">
             <div class="row">
               <div class="col-md-9">
-                <span class="nama-wisata detail">Nama Wisata</span>
+                <span class="nama-wisata detail"><?php echo $result['nama_wisata'] ?></span>
               </div>
               <div class="col-md-3 wadah-nilai">
                 <select class="nilai-wisata">
@@ -139,9 +154,9 @@ include "konfigurasi/sesi.php";
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);">
+                <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);"  id="map">
                   <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
-                  peta di sini
+
                 </div>
               </div>
             </div>
@@ -169,6 +184,11 @@ include "konfigurasi/sesi.php";
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
+                </div>
+                <div>
+                  <input type="hidden" id="nama_wisata" value="<?php echo $result['nama_wisata']?>"/>
+                  <input type="hidden" id="latitude" value="<?php echo $result['latitude'] ?>"/>
+                  <input type="hidden" id="longitude" value="<?php echo $result['longitude'] ?>"/>
                 </div>
               </div>
               <div class="row">
@@ -249,6 +269,9 @@ include "konfigurasi/sesi.php";
     <script type="text/javascript" src="plugins/jquery-bar-rating/jquery.barrating.min.js"></script>
 
     <script>
+    var latitude =   parseFloat($('#latitude').val());
+    var longitude =   parseFloat($('#longitude').val());
+    var namaWisata = $('#nama_wisata').val();
     	$('#slide-foto').slick({
     		autoplay: true,
     		dots: true,
@@ -261,7 +284,79 @@ include "konfigurasi/sesi.php";
       $('.nilai-ulasan').barrating({
         theme: 'bootstrap-stars'
       });
-    	$('.nilai-wisata').barrating('readonly',true)
+    	$('.nilai-wisata').barrating('readonly',true);
+
+
+      var customLabel = {
+        restaurant: {
+          label: 'R'
+        },
+        bar: {
+          label: 'B'
+        }
+      };
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: new google.maps.LatLng(latitude, longitude),
+          zoom: 12,
+        });
+        var infoWindow = new google.maps.InfoWindow;
+
+          // Change this depending on the name of your PHP or XML file
+      //  downloadUrl('https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml', function(data) {
+        //    var xml = data.responseXML;
+          //  var markers = xml.documentElement.getElementsByTagName('marker');
+          //  Array.prototype.forEach.call(markers, function(markerElem) {
+            //  var name = markerElem.getAttribute('name');
+            //  var address = markerElem.getAttribute('address');
+            //  var type = markerElem.getAttribute('type');
+              var point = new google.maps.LatLng(
+                  latitude,
+                  longitude);
+
+              var infowincontent = document.createElement('div');
+              var strong = document.createElement('strong');
+              strong.textContent = name
+              infowincontent.appendChild(strong);
+              infowincontent.appendChild(document.createElement('br'));
+
+              var text = document.createElement('text');
+            //  text.textContent = address
+              infowincontent.appendChild(text);
+            //  var icon = customLabel[type] || {};
+              var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                label: namaWisata
+              });
+              marker.addListener('click', function() {
+                infoWindow.setContent(infowincontent);
+                infoWindow.open(map, marker);
+              });
+
+            //});
+        //  });
+        }
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+  //    function doNothing() {}
     </script>
+    <script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCl_lUALnXByOhoR2C539GbSQrHfYwmUU&callback=initMap">
+   </script>
   </body>
 </html>

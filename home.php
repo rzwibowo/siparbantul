@@ -52,7 +52,7 @@ include "konfigurasi/sesi.php";
       .example-modal .modal {
       background: transparent !important;
       }*/
-      
+
     </style>
   </head>
 
@@ -156,7 +156,7 @@ include "konfigurasi/sesi.php";
 		  								</select>
 		  							</div>
 		  							<div class="col-md-2 col-md-offset-7">
-		  								<a class="btn btn-info" href="<?php echo $data['id_wisata'] ?>">Selengkapnya</a>
+		  								<a class="btn btn-info" href="wisata.php?id_wisata=<?php echo $data['id_wisata'] ?>">Selengkapnya</a>
 		  							</div>
 		  						</div>
 		  					</div>

@@ -13,7 +13,7 @@ $TotalReting = round($RataRata['ratarata']);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<title>PKKSIP BANTUL</title>  <!-- title dibikin format "Nama Wisata | PKKSIP BANTUL" -->
+<title><?php echo $result['nama_wisata']; ?> | PKKSIP BANTUL</title>  <!-- title dibikin format "Nama Wisata | PKKSIP BANTUL" -->
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap 3.3.6 -->
@@ -115,9 +115,15 @@ $TotalReting = round($RataRata['ratarata']);
 		<div class="row">
 			<div class="col-md-12">
 				<div id="slide-foto">
-					<div><img src="img/b5.jpg" alt=""></div>
-					<div><img src="img/background.jpg" alt=""></div>
-					<div><img src="img/content.jpg" alt=""></div>
+          <?php
+            $query_foto="SELECT nama FROM foto WHERE id_wisata='".$result['id_wisata']."'";
+            $ambil_foto=$db->query($query_foto);
+            while($nama_file_foto=$ambil_foto->fetch_array()){
+          ?>
+					<div><img src="Images/<?php echo $nama_file_foto['nama']; ?>" alt=""></div>
+          <?php
+            }
+          ?>
 				</div>
 			</div>
 		</div>
@@ -157,7 +163,7 @@ $TotalReting = round($RataRata['ratarata']);
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);"  id="map">
+              <div class="peta-wisata" style="height: 15em;"  id="map">
                 <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
 
               </div>
@@ -290,7 +296,8 @@ $TotalReting = round($RataRata['ratarata']);
   		autoplay: true,
   		dots: true,
   		fade: true,
-  		centerMode: true
+  		centerMode: true,
+      adaptiveHeight: true
   	});
   	$('.nilai-wisata').barrating({
   		theme: 'bootstrap-stars'

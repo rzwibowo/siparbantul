@@ -50,6 +50,16 @@ input[type=file]{
 
     color:transparent;
 }
+
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 </style>
 </head>
 
@@ -170,6 +180,14 @@ input[type=file]{
                   ?>
               </select>
               <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);"  id="map">
+                  <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
+
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label>Latitude</label>
@@ -310,9 +328,24 @@ function clearFoto(){
   var input = $("#foto");
   input.replaceWith(input.val('').clone(true));
 }
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(-7.875973, 110.325352),
+    zoom: 12,
+  });
+
+  google.maps.event.addListener(map, "click", function (e) {
+  $('#latitude').val(e.latLng.lat());
+  $('#longitude').val(e.latLng.lng());
+
+  });
+  }
 </script>
 
-
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCl_lUALnXByOhoR2C539GbSQrHfYwmUU&callback=initMap">
+</script>
 <!-- jQuery 2.2.3 -->
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->

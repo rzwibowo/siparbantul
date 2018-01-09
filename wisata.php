@@ -301,7 +301,7 @@ $result = $db->query("SELECT * FROM wisata WHERE id_wisata ='$id_wisata'")->fetc
           center: new google.maps.LatLng(latitude, longitude),
           zoom: 12,
         });
-        var infoWindow = new google.maps.InfoWindow;
+      //  var infoWindow = new google.maps.InfoWindow;
 
           // Change this depending on the name of your PHP or XML file
       //  downloadUrl('https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml', function(data) {
@@ -330,28 +330,36 @@ $result = $db->query("SELECT * FROM wisata WHERE id_wisata ='$id_wisata'")->fetc
                 position: point,
                 label: namaWisata
               });
-              marker.addListener('click', function() {
-                infoWindow.setContent(infowincontent);
-                infoWindow.open(map, marker);
-              });
+              // marker.addListener('click', function() {
+              //   infoWindow.setContent(infowincontent);
+              //   infoWindow.open(map, marker);
+              // });
 
             //});
         //  });
-        }
-      function downloadUrl(url, callback) {
-        var request = window.ActiveXObject ?
-            new ActiveXObject('Microsoft.XMLHTTP') :
-            new XMLHttpRequest;
+        google.maps.event.addListener(map, "click", function (e) {
 
-        request.onreadystatechange = function() {
-          if (request.readyState == 4) {
-            request.onreadystatechange = doNothing;
-            callback(request, request.status);
-          }
-        };
-        request.open('GET', url, true);
-        request.send(null);
-      }
+      //lat and lng is available in e object
+      console.log(e.latLng.lat(),e.latLng.lng());
+
+        });
+        }
+      // function downloadUrl(url, callback) {
+      //   var request = window.ActiveXObject ?
+      //       new ActiveXObject('Microsoft.XMLHTTP') :
+      //       new XMLHttpRequest;
+      //
+      //   request.onreadystatechange = function() {
+      //     if (request.readyState == 4) {
+      //       request.onreadystatechange = doNothing;
+      //       callback(request, request.status);
+      //     }
+      //   };
+      //   request.open('GET', url, true);
+      //   request.send(null);
+      // }
+
+
 
   //    function doNothing() {}
     </script>

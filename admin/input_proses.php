@@ -27,6 +27,7 @@ else{
           }
           else
           {
+            if(count($FILE['name']) > 0 && $FILE['name'][0] !== ""){
               for ($i=0; $i < count($FILE['name']); $i++) {
                   $errors= array();
                   $file_name = $FILE['name'][$i];
@@ -60,9 +61,12 @@ else{
           }
           if(empty($errors)==true){
              // Informasi berhasil dan kembali ke inputan
-             echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+             echo"<script>alert('Data Berhasil disimpan !');location.href='list_wisata.php';</script>";
           }
-          }
+        }else{
+           echo"<script>alert('Data Berhasil disimpan !');location.href='list_wisata.php';</script>";
+        }
+       }
         }
         else
         {
@@ -88,7 +92,7 @@ else{
         }
         else
         {
-          if(count($FILE['name']) > 0 ){
+          if(count($FILE['name']) > 0 && $FILE['name'][0] !== ""){
           $errors= array();
           $query = "DELETE FROM foto WHERE id_wisata='$id_wisata'";
           if ($db->query($query)===TRUE)
@@ -125,11 +129,11 @@ else{
             }
             if(empty($errors)==true){
                // Informasi berhasil dan kembali ke inputan
-               echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+               echo"<script>alert('Data Berhasil di Update !');location.href='list_wisata.php';</script>";
             }
         }
       }else {
-         echo"<script>alert('Gambar Berhasil diupload !');history.go(-1);</script>";
+         echo"<script>alert('Data Berhasil di Update !');location.href='list_wisata.php';</script>";
       }
       }
       }

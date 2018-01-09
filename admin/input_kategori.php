@@ -148,9 +148,10 @@ input[type=file]{
             <div class="form-group">
               <label>Nama Kategori</label>
               <input type="text" class="form-control" placeholder="Enter ..." name="kategori" id="kategori">
+              <span id="warningkategori" style="color:#FFA500;"></span>
             </div>
             <div class="form-group">
-                 <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
+                 <a class="btn btn-primary pull-right" onclick="Submit()" >Simpan</a>
                   <a class="btn btn-default pull-right" href="list_wisata.php" >Batal</a>
             </div>
 
@@ -262,6 +263,17 @@ function clearFoto(){
   $('#ViewFoto').empty();
   var input = $("#foto");
   input.replaceWith(input.val('').clone(true));
+}
+function Submit(){
+  var kategori = $("#kategori").val();
+
+ if(kategori == ""){
+     $("#warningkategori").html("Nama kategori harus diisi");
+ }else {
+   $('#myModal').modal({
+        show: 'true'
+    });
+ }
 }
 </script>
 

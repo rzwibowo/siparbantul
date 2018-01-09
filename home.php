@@ -112,7 +112,11 @@ include "konfigurasi/sesi.php";
       <?php
       $Query = "SELECT * FROM wisata";
       $result = $db->query($Query);
+      $TotalReting = 0;
        while($data=$result->fetch_array()){
+         $queryRata2 = "SELECT AVG(jml_penilaian) AS ratarata FROM ulasan_penilaian WHERE id_wisata ='$data[id_wisata]'";
+         $RataRata = $db->query($queryRata2)->fetch_assoc();
+         $TotalReting = round($RataRata['ratarata']);
       ?>
   		<div class="row">
   			<div class="col-md-12">
@@ -148,11 +152,11 @@ include "konfigurasi/sesi.php";
 		  							<div class="col-md-3">
 		  								<label>Penilaian: </label>
 		  								<select class="nilai-wisata">
-			  								<option value="1">1</option>
-			  								<option value="2">2</option>
-			  								<option value="3" selected="selected">3</option>
-			  								<option value="4">4</option>
-			  								<option value="5">5</option>
+			  								<option value="1" <?php if($TotalReting == "1") echo "selected='selected'" ?>>1</option>
+			  								<option value="2" <?php if($TotalReting == "2") echo "selected='selected'" ?>>2</option>
+			  								<option value="3" <?php if($TotalReting == "3") echo "selected='selected'" ?>>3</option>
+			  								<option value="4" <?php if($TotalReting == "4") echo "selected='selected'" ?>>4</option>
+			  								<option value="5" <?php if($TotalReting == "5") echo "selected='selected'" ?>>5</option>
 		  								</select>
 		  							</div>
 		  							<div class="col-md-2 col-md-offset-7">

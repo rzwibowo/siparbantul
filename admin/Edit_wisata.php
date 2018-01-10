@@ -179,9 +179,27 @@ include "../konfigurasi/config.php";
                     </select>
                     <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
                   </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);"  id="map">
+                        <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Latitude</label>
+                      <input type="text" class="form-control" placeholder="Enter ..." name="latitude" id="latitude" value="<?php echo $result['latitude'] ?>" >
+                      <span id="warninglatitude" style="color:#FFA500;"></span>
+                  </div>
+                  <div class="form-group">
+                    <label>Longitude</label>
+                      <input type="text" class="form-control" placeholder="Enter ..." name="longitude" id="longitude" value="<?php echo $result['longitude'] ?> ">
+                      <span id="warninglongitude" style="color:#FFA500;"></span>
+                  </div>
                   <div class="form-group">
                     <label>Deskripsi</label>
-                    <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"><?php echo $data['deskripsi']; ?></textarea>
+                    <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"> <?php echo $result['deskripsi']; ?></textarea>
                   </div>
                   <div class='form-group'>
                   <div id="ViewFoto" class="row">
@@ -193,14 +211,23 @@ include "../konfigurasi/config.php";
                   ?>
                   </div>
                 </div>
+                <div class="form-group">
+                 <label class="control-label">Tambahkan Foto</label>
+                 <div class="row">
+                   <div class="col-md-2">
+                    <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple style="padding-top:5px;"/>
+                   </div>
+                   <div class="col-md-2">
+                      <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
+                   </div>
+                 </div>
+                </div>
+
                   <div class="form-group">
-                   <label class="control-label">Tambahkan Foto</label>
-                  <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/>
-                   <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
-                  </div>
-                  <div class="form-group">
-                       <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
-                      <a class="btn btn-default pull-right"  href="list_wisata.php">Batal</a>
+                    <div class="col-md-4 pull-right" style="text-align:right">
+                      <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Simpan</a>&nbsp;
+                      <a class="btn btn-default" href="list_wisata.php">Batal</a>
+                    </div>
                   </div>
 
                   <div id="myModal" class="modal fade" role="dialog">
@@ -243,35 +270,7 @@ include "../konfigurasi/config.php";
 </div>
 
   <!-- Modal -->
-  <script>
-    function kategori()
-    {    $('#kategori').modal('show');
-    }
-    function CheckInput(){
-      var IsValid = true;
 
-    }
-    function RedFile(input){
-      if(input.files.length > 0){
-    $('#ViewFoto').empty();
-    if (input.files) {
-    var reader = new FileReader();
-    for (i = 0; i < input.files.length; i++) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-             $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
-        }
-    reader.readAsDataURL(input.files[i]);
-    }
-    }
-    }
-    }
-    function clearFoto(){
-      $('#ViewFoto').empty();
-      var input = $("#foto");
-      input.replaceWith(input.val('').clone(true));
-    }
-  </script>
 
   <div id="kategori" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -314,7 +313,9 @@ include "../konfigurasi/config.php";
   <strong>Copyright &copy; 2017 SKRIPSI Persepsi Kemudahan Kegunaan Sistem Informasi Pariwisata Di Kabupaten Bantul.</strong> All rights reserved.
 </footer>
 
-
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCl_lUALnXByOhoR2C539GbSQrHfYwmUU&callback=initMap">
+</script>
 <!-- jQuery 2.2.3 -->
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -325,5 +326,79 @@ include "../konfigurasi/config.php";
 <script src="../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
+<script>
+var latitude =   parseFloat($('#latitude').val());
+var longitude =   parseFloat($('#longitude').val());
+var namaWisata = $('#nama_wisata').val();
+
+  function kategori()
+  {    $('#kategori').modal('show');
+  }
+  function CheckInput(){
+    var IsValid = true;
+
+  }
+  function RedFile(input){
+  if(input.files.length > 0){
+    if(input.files.length <= 5){
+      $('#ViewFoto').empty();
+      if (input.files) {
+        var reader = new FileReader();
+        for (i = 0; i < input.files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                 $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
+            }
+            reader.readAsDataURL(input.files[i]);
+        }
+      }
+  }else {
+  var r = confirm("Maksimal foto 5 apakah anda ingin tetap memilih?");
+  if (r == true) {
+   $('#ViewFoto').empty();
+      if (input.files) {
+        var reader = new FileReader();
+        for (i = 0; i < 5; i++) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                 $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
+            }
+            reader.readAsDataURL(input.files[i]);
+        }
+      }
+  } else {
+   clearFoto();
+  }
+}
+  }
+  }
+  function clearFoto(){
+    $('#ViewFoto').empty();
+    var input = $("#foto");
+    input.replaceWith(input.val('').clone(true));
+  }
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: new google.maps.LatLng(latitude, longitude),
+      zoom: 12,
+    });
+    var point = new google.maps.LatLng(
+              latitude,
+              longitude);
+
+    var marker = new google.maps.Marker({
+            map: map,
+            position: point,
+            label: namaWisata
+    });
+
+    google.maps.event.addListener(map, "click", function (e) {
+    $('#latitude').val(e.latLng.lat());
+    $('#longitude').val(e.latLng.lng());
+    });
+    }
+</script>
 </body>
 </html>

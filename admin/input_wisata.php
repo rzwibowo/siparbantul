@@ -217,12 +217,20 @@ html, body {
 				   </div>
             <div class="form-group">
              <label class="control-label">Tambahkan Foto</label>
-             <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/>
-             <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
+             <div class="row">
+               <div class="col-md-2">
+                    <input type="file" name="foto[]" id="foto" onchange="RedFile(this)" multiple/ style="padding-top:5px;">
+               </div>
+               <div class="col-md-2">
+                  <a class="btn btn-warning"  onclick="clearFoto()">Clear</a>
+               </div>
+             </div>
             </div>
             <div class="form-group">
-                 <a class="btn btn-primary pull-right" onclick="Submit()">Simpan</a>
-                  <a class="btn btn-default pull-right" href="list_wisata.php" >Batal</a>
+                    <div class="col-md-4 pull-right" style="text-align:right">
+                      <a class="btn btn-primary" onclick="Submit()">Simpan</a>&nbsp;
+                      <a class="btn btn-default" href="list_wisata.php" >Batal</a>
+                    </div>
             </div>
 
             <div id="myModal" class="modal fade" role="dialog">
@@ -345,16 +353,35 @@ function Submit(){
 }
 function RedFile(input){
   if(input.files.length > 0){
-$('#ViewFoto').empty();
-if (input.files) {
-var reader = new FileReader();
-for (i = 0; i < input.files.length; i++) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-         $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
+    if(input.files.length <= 5){
+    $('#ViewFoto').empty();
+    if (input.files) {
+     var reader = new FileReader();
+     for (i = 0; i < input.files.length; i++) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+             $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
+       }
+      reader.readAsDataURL(input.files[i]);
     }
-reader.readAsDataURL(input.files[i]);
-}
+  }
+}else {
+  var r = confirm("Maksimal foto 5 apakah anda ingin tetap memilih?");
+  if (r == true) {
+    $('#ViewFoto').empty();
+    if (input.files) {
+     var reader = new FileReader();
+     for (i = 0; i < 5; i++) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+             $('#ViewFoto').append("<div class='col-md-4'><img src="+e.target.result+" class='img-thumbnail'></img></div>");
+       }
+      reader.readAsDataURL(input.files[i]);
+    }
+  }
+  } else {
+   clearFoto();
+  }
 }
 }
 }

@@ -163,8 +163,7 @@ if (!isset($_SESSION['login_user'])) {
                  <tr>
                   <td>  $nomer </td>
                   <td>" .$data["nama_kategori"]."</td>
-                  <td><a href='view_kategori.php?id_kategori=".$data["id_kategori"]."' class='fa fa-eye'> View </a> &nbsp;
-                  <a href='edit_kategori.php?id_kategori=".$data["id_kategori"]."' class='fa fa-edit'> Edit </a> &nbsp;
+                  <td><a href='edit_kategori.php?id_kategori=".$data["id_kategori"]."' class='fa fa-edit'> Edit </a> &nbsp;
                   <a href='#' onclick='hapus($data[id_kategori])' class='fa fa-trash'> Hapus </a>
                 </td>
                 </tr>";}

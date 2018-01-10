@@ -153,11 +153,13 @@ include "../konfigurasi/config.php";
                   <div class="form-group">
                     <label>Nama Wisata</label>
                     <input type="text" class="form-control" placeholder="Enter ..." name="nama_wisata" id="nama_wisata" value="<?php echo $result['nama_wisata']?>">
+                    <span id="warningnamawisata" style="color:#FFA500;"></span>
                   </div>
                   <!-- textarea -->
                   <div class="form-group">
                     <label> Alamat</label>
                     <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat" id="alamat"> <?php echo $result['alamat']?></textarea>
+                    <span id="warningalamat" style="color:#FFA500;"></span>
                   </div>
                   <!-- select -->
                   <div class="form-group">
@@ -177,6 +179,7 @@ include "../konfigurasi/config.php";
                         //  $db->close();
                         ?>
                     </select>
+                    <span id="warningkategori" style="color:#FFA500;"></span>
                     <h6><a href="javascript:kategori()">Tidak menemukan kategori?... klik disini!</a></h6>
                   </div>
                   <div class="row">
@@ -200,6 +203,7 @@ include "../konfigurasi/config.php";
                   <div class="form-group">
                     <label>Deskripsi</label>
                     <textarea class="form-control" rows="5" placeholder="Enter ..." name="deskripsi" id="deskripsi"> <?php echo $result['deskripsi']; ?></textarea>
+                    <span id="warningdeskripsi" style="color:#FFA500;"></span>
                   </div>
                   <div class='form-group'>
                   <div id="ViewFoto" class="row">
@@ -225,7 +229,7 @@ include "../konfigurasi/config.php";
 
                   <div class="form-group">
                     <div class="col-md-4 pull-right" style="text-align:right">
-                      <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Simpan</a>&nbsp;
+                      <a class="btn btn-primary" data-toggle="modal" onclick="Submit()" >Simpan</a>&nbsp;
                       <a class="btn btn-default" href="list_wisata.php">Batal</a>
                     </div>
                   </div>
@@ -335,10 +339,36 @@ var namaWisata = $('#nama_wisata').val();
   function kategori()
   {    $('#kategori').modal('show');
   }
-  function CheckInput(){
-    var IsValid = true;
 
-  }
+ function Submit(){
+  var namaWisata = $("#nama_wisata").val();
+  var alamat = $("#alamat").val();
+  var kategori = $("#kategori").val();
+  var latitude = $("#latitude").val();
+  var longitude = $("#longitude").val();
+  var deskripsi = $("#deskripsi").val();
+ if(namaWisata == "" || alamat == "" || kategori ==""||latitude==""||longitude ==""||deskripsi==""){
+   if(namaWisata == ""){
+     $("#warningnamawisata").html("Nama wisata harus diisi");
+   }
+   if(alamat == ""){
+       $("#warningalamat").html("Alamat harus diisi");
+   }if(kategori ==""){
+        $("#warningkategori").html("Kategori harus dipilih");
+   }if(latitude ==""){
+        $("#warninglatitude").html("Latitude harus diisi");
+   }if(longitude ==""){
+        $("#warninglongitude").html("Longitude harus diisi");
+   }if(deskripsi ==""){
+      $("#warningdeskripsi").html("Deskripsi harus diisi");
+   }
+ }else {
+   $('#myModal').modal({
+        show: 'true'
+    });
+ }
+}
+
   function RedFile(input){
   if(input.files.length > 0){
     if(input.files.length <= 5){

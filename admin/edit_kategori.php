@@ -153,12 +153,14 @@ include "../konfigurasi/config.php";
                   <div class="form-group">
                     <label>Nama Kategori</label>
                     <input type="text" class="form-control" placeholder="Enter ..." name="kategori" id="kategori" value="<?php echo $result['nama_kategori']?>">
+                      <span id="warningkategori" style="color:#FFA500;"></span>
                   </div>
                   <div class="form-group">
-                       <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" >Simpan</a>
-                      <a class="btn btn-default pull-right"  href="list_kategori.php">Batal</a>
+                    <div class="col-md-4 pull-right" style="text-align:right">
+                        <a class="btn btn-primary pull-right" onclick="Submit()" >Simpan</a>&nbsp;
+                        <a class="btn btn-default pull-right"  href="list_kategori.php">Batal</a>
+                    </div>
                   </div>
-
                   <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                        <!-- konten modal-->
@@ -227,6 +229,17 @@ include "../konfigurasi/config.php";
       var input = $("#foto");
       input.replaceWith(input.val('').clone(true));
     }
+    function Submit(){
+      var kategori = $("#kategori").val();
+
+     if(kategori == ""){
+         $("#warningkategori").html("Nama kategori harus diisi");
+     }else {
+       $('#myModal').modal({
+            show: 'true'
+        });
+  }
+  }
   </script>
 
   <div id="kategori" class="modal fade" role="dialog">

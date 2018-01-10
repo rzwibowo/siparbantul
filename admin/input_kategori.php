@@ -151,8 +151,10 @@ input[type=file]{
               <span id="warningkategori" style="color:#FFA500;"></span>
             </div>
             <div class="form-group">
-                 <a class="btn btn-primary pull-right" onclick="Submit()" >Simpan</a>
-                  <a class="btn btn-default pull-right" href="list_wisata.php" >Batal</a>
+                    <div class="col-md-4 pull-right" style="text-align:right">
+                       <a class="btn btn-primary pull-right" onclick="Submit()" >Simpan</a>&nbsp;
+                       <a class="btn btn-default pull-right" href="list_wisata.php" >Batal</a>
+                    </div>
             </div>
 
             <div id="myModal" class="modal fade" role="dialog">

@@ -1,5 +1,6 @@
 <?php
 include "konfigurasi/sesi.php";
+$id_kategori =$_GET['id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,6 +118,7 @@ include "konfigurasi/sesi.php";
        ROUND(AVG(b.jml_penilaian)) TotalReting FROM wisata a 
        LEFT JOIN ulasan_penilaian b
        on a.id_wisata = b.id_wisata
+       WHERE id_kategori = '$id_kategori'
        GROUP BY id_wisata
        ORDER BY TotalReting DESC";
        $result = $db->query($Query);

@@ -8,7 +8,7 @@
             	<span class="icon-bar"></span>
             	<span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="homebycategory.php"><img src="img/logo.png" alt=""></a>
+            <a class="navbar-brand" href="home.php"><img src="img/logo.png" alt=""></a>
         </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->

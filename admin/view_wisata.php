@@ -166,17 +166,27 @@ include "../konfigurasi/config.php";
                   </div>
                   <div class="form-group">
                     <label>Latitude:</label>
-                    <span><?php echo  $result['latitude'];?></span>
+                    <span id="latitude"><?php echo  $result['latitude'];?></span>
                   </div>
                   <div class="form-group">
                     <label>Longitude:</label>
-                    <span><?php echo  $result['longitude'];?></span>
+                    <span id="longitude"><?php echo  $result['longitude'];?></span>
                   </div>
                   <div class="form-group">
                     <label>Deskripsi:</label>
                     <span><?php echo $result['deskripsi']; ?></span>
                   </div>
+                  <div class="form-group">
+                   <label>Lokasi:</label>
+                    <div class="col-md-12">
+                      <div class="peta-wisata" style="height: 15em; background-color: rgb(153, 204, 153);"  id="map">
+                        <!-- PERHATIAN: hilangkan atribut style saat sudah menggunakan maps sesungguhnya -->
+
+                      </div>
+                    </div>
+                  </div>
                   <div class='form-group'>
+                  <label>Foto:</label>
                   <div id="ViewFoto" class="row">
                   <?php
                    $query = $db->query("SELECT * FROM foto WHERE id_wisata=$id_wisata");
@@ -282,6 +292,8 @@ include "../konfigurasi/config.php";
 
 
 <!-- jQuery 2.2.3 -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCl_lUALnXByOhoR2C539GbSQrHfYwmUU&callback=initMap">
+</script>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -291,5 +303,26 @@ include "../konfigurasi/config.php";
 <script src="../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
+<script type="text/javascript">
+var latitude = parseFloat($('#latitude').html());
+var longitude = parseFloat($('#longitude').html());
+    function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: new google.maps.LatLng(latitude, longitude),
+      zoom: 12,
+    });
+    var point = new google.maps.LatLng(
+              latitude,
+              longitude);
+
+    var marker = new google.maps.Marker({
+            map: map,
+            position: point,
+            label: ""
+    });
+
+    }
+</script>
 </body>
 </html>

@@ -76,37 +76,7 @@ $TotalReting = round($RataRata['ratarata']);
 
 <body>
 	<!-- awal navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-	    <div class="container">
-  	    <!-- Brand and toggle get grouped for better mobile display -->
-	        <div class="navbar-header">
-	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	            	<span class="sr-only">Toggle navigation</span>
-	            	<span class="icon-bar"></span>
-	            	<span class="icon-bar"></span>
-	            	<span class="icon-bar"></span>
-	            </button>
-	            <a class="navbar-brand" href="#">Logo</a>
-	        </div>
-
-  	    <!-- Collect the nav links, forms, and other content for toggling -->
-	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	            <ul class="nav navbar-nav">
-	            	<li><a href="#">Top Wisata</a></li>
-	            	<li><a href="#">Wisata Pantai</a></li>
-	            	<li><a href="#">Wisata Alam</a></li>
-	            	<li class="dropdown">
-	              		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wisata Lainnya <span class="caret"></span></a>
-	            		<ul class="dropdown-menu">
-	                		<li><a href="#">Wisata Candi</a></li>
-	                		<li><a href="#">Wisata Kuliner</a></li>
-	                		<li><a href="#">Desa Wisata</a></li>
-	            		</ul>
-	        		</li>
-	            </ul>
-	        </div><!-- /.navbar-collapse -->
-	    </div><!-- /.container-fluid -->
-	</nav>
+	<?php include 'include-navbar.php'; ?>
 	<!-- akhir navbar -->
 
 	<!-- awal kontainer utama -->
@@ -174,6 +144,14 @@ $TotalReting = round($RataRata['ratarata']);
     </div>
     <!-- akhir info wisata -->
 
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <span class="judul-section">
+          Berikan Ulasan Anda:
+        </span>
+      </div>
+    </div>
+
     <!-- awal form ulasan wisata -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -222,10 +200,32 @@ $TotalReting = round($RataRata['ratarata']);
     </div>
     <!-- akhir form ulasan wisata -->
 
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <span class="judul-section">
+          Ulasan Pengunjung:
+        </span>
+      </div>
+    </div>
+
     <!-- awal daftar ulasan -->
     <?php
     $Query = "SELECT * FROM ulasan_penilaian WHERE id_wisata ='$id_wisata'";
     $resUlsan = $db->query($Query);
+    if (mysqli_num_rows($resUlsan)==0) {
+      # code...
+    ?>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <span class="judul-section kosong">
+          <span class="glyphicon glyphicon-option-horizontal"></span>
+          <br>
+          Belum ada Ulasan
+        </span>
+      </div>
+    </div>
+    <?php
+    }
      while($restData=$resUlsan->fetch_array()){
 
     ?>
@@ -287,25 +287,14 @@ $TotalReting = round($RataRata['ratarata']);
   <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
   <!-- bar rating -->
   <script type="text/javascript" src="plugins/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/me.js"></script>
 
   <script>
   var latitude =   parseFloat($('#latitude').val());
   var longitude =   parseFloat($('#longitude').val());
   var namaWisata = $('#nama_wisata').val();
-  	$('#slide-foto').slick({
-  		autoplay: true,
-  		dots: true,
-  		fade: true,
-  		centerMode: true,
-      adaptiveHeight: true
-  	});
-  	$('.nilai-wisata').barrating({
-  		theme: 'bootstrap-stars'
-  	});
-    $('.nilai-ulasan').barrating({
-      theme: 'bootstrap-stars'
-    });
-  	$('.nilai-wisata').barrating('readonly',true);
+  	
 
    $("form").submit(function() {
      var namaPengulas = $("#namapengulas").val();

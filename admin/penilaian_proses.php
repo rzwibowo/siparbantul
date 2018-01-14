@@ -10,10 +10,10 @@ include "../konfigurasi/config.php";
         $query = "insert into ulasan_penilaian values ( '', '$id_wisata','$namapengulas','$nilaiulasan','$uraianulasan')";
         if ($db->query($query)===TRUE)
         {
-            echo"<script>alert('Data berhasil Disimpan!');location.href='../home.php';</script>";
+            echo"<script>alert('Berhasil Disimpan!');history.go(-1);</script>";
         }
         else
         {
-          echo"<script>alert('Terjadi Kesalahan!');location.href='../home.php';</script>";
+           echo"<script>alert('Terjadi Kesalahan!');history.go(-1);</script>";
         }
 ?>

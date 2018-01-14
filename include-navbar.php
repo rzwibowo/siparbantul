@@ -14,7 +14,7 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-            	<li><a href="#">Top Wisata</a></li>
+            	<li><a href="home.php">Top Wisata</a></li>
             	<?php
           $QueryKategori = "SELECT * FROM kategori";
           $resultKategori = $db->query($QueryKategori);
